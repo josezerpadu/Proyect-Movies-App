@@ -1,0 +1,102 @@
+
+.container {
+  margin: auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(0, 0, 0);
+}
+
+.movie-list {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+}
+
+.movie-item {
+  position: relative;
+  margin-right: 10px;
+  max-width: 190px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  
+}
+
+.movie-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 35px rgba(182, 7, 7, 0.596);
+  background-color: rgba(182, 7, 7, 0.986);
+  
+}
+
+.movie-image {
+  width: 100%;
+  display: block;
+  border-radius: 8px 8px 0 0;
+}
+
+.movie-title {
+  padding: 5px;
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 0;
+  color: #000000;
+  overflow: hidden;
+  white-space: nowrap;
+  
+}
+
+.react-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: yellow;
+  background-color: #000000b2;
+  border-radius: 5px;
+  font-size: 30px;
+  padding: 2px;
+  transition: transform 0.3s ease;
+}
+
+.react-icon:hover {
+  font-size: 35px;
+  cursor: pointer;
+  color: red;
+  box-shadow: 0 2px 40px rgba(231, 235, 8, 0.938);
+  background-color: rgba(255, 255, 8, 0.945);
+  transform: translateY(-5px);
+  
+}
+
+/* Estilos del input */
+.container-input {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  z-index: 9999;
+  
+  
+
+}
+
+.input {
+  max-width: 180px;
+  background-color: rgba(0, 0, 0, 0.507);
+  border: 1px solid red;
+  border-radius: 20px;
+  padding: 6px;
+  color: rgb(212, 58, 58);
+  font-size: 20px;
+  text-align: left;
+  
+
+}
+.input:hover {
+  box-shadow: 0 2px 25px rgba(182, 7, 7, 0.596);
+}
+
+
