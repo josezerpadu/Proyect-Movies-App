@@ -8,6 +8,7 @@ import HeaderNav from "./component/HeaderNav";
 import MovieList from "./component/MovieList";
 import MovieDetails from "./component/MovieDetails";
 import { useEffect, useState } from "react";
+import Spinner from './component/Spinner/Spinner';
 
 const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular";
 const API_KEYS = "api_key=430bfb8ead0cc8146e757cfa6600f723";
@@ -23,9 +24,12 @@ function App() {
   // Estado para almacenar los resultados de la búsqueda
   const [searchResults, setSearchResults] = useState([]);
 
+  const [spinner, setSpinner] = useState(false);
+
  
     const fetchMovies = async () => {
       try {
+        setSpinner(true);
         const res = await fetch(`${URL_POPULAR}?${LANGUAJE}&${API_KEYS}`);
         const data = await res.json();
 
@@ -34,6 +38,7 @@ function App() {
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
+      setSpinner(false);
     };
 
   
@@ -41,7 +46,9 @@ function App() {
   
     const searchMovies = async () => {
       try {
+        
         if (searchTerm.trim().length > 2) {
+          setSpinner(true);
           const res = await fetch(
             `${URL_SEARCH}?${LANGUAJE}&${API_KEYS}&query=${searchTerm}`
           );
@@ -55,6 +62,7 @@ function App() {
       } catch (error) {
         console.error("Error searching movies:", error);
       }
+      setSpinner(false);
     };
 
     useEffect(() => {
@@ -79,11 +87,12 @@ function App() {
     <>
     <Router>
         <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
+        <Spinner spinner={spinner} />
         <Routes>
           <Route
             exact
             path="/"
-            element={<MovieList moviesToDisplay={moviesToDisplay} />}
+            element={ <MovieList moviesToDisplay={moviesToDisplay} />}
           />
           <Route path="/movie/:id" element={<MovieDetails />} />
         </Routes>
