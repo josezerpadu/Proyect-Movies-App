@@ -1,4 +1,6 @@
-
+.movie-link{
+  text-decoration: none;
+}
 .container {
   margin: auto;
   padding: 20px;
@@ -73,10 +75,10 @@
 }
 
 /* Estilos del input */
-.container-input {
+/* .container-input {
   position: absolute;
-  top: 22px;
-  right: 20px;
+  top: 23px;
+  right: 200px;
   z-index: 9999;
   
   
@@ -84,13 +86,13 @@
 }
 
 .input {
-  max-width: 180px;
+  max-width: 280px;
   background-color: rgba(0, 0, 0, 0.507);
   border: 1px solid red;
   border-radius: 20px;
   padding: 6px;
   color: rgb(212, 58, 58);
-  font-size: 20px;
+  font-size: 17px;
   text-align: left;
   
 
@@ -99,4 +101,4 @@
   box-shadow: 0 2px 25px rgba(182, 7, 7, 0.596);
 }
 
-
+ */

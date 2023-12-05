@@ -1,18 +1,17 @@
 /* eslint-disable react/prop-types */
+import { Link } from 'react-router-dom';
 import { MdOutlineFavorite } from "react-icons/md";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ moviesToDisplay }) => {
   // Aca retornarmos en pantalla nuestro listado de peliculas
   return (
     <>
       <div className="container">
         <ul className="movie-list">
           {/* Recorremos cada posicion en el arreglo y extraemos sus datos en una lista y mostramo en pantalla */}
-          {movies.map((movie) => (
-            <li
-              key={movie.id} // Identificador unico para que cada uno de los item a imprimir
-              className="movie-item"
-            >
+          {moviesToDisplay.map((movie) => (
+            <li key={movie.id} className="movie-item"> 
+              <Link to={`/movie/${movie.id}`} className="movie-link">
               {movie.poster_path ? (
                 <img
                   className="movie-image"
@@ -20,10 +19,11 @@ const MovieList = ({ movies }) => {
                   alt={movie.title}
                 />
               ) : null}
+              <h2 className="movie-title">{movie.title}</h2>
+              </Link>
               <div>
                 <span>{<MdOutlineFavorite className="react-icon" />}</span>
               </div>
-              <h2 className="movie-title">{movie.title}</h2>
             </li>
           ))}
         </ul>

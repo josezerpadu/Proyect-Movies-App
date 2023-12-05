@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import './App.css'
-
+import './style/MovieDetails.css'
 import "./style/MovieList.css";
 import "./style/Header.css";
-import MovieList from "./component/MovieList/MovieList";
-import HeaderNav from "./component/BarraNav/HeaderNav";
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HeaderNav from "./component/HeaderNav";
+import MovieList from "./component/MovieList";
+import MovieDetails from "./component/MovieDetails";
 import { useEffect, useState } from "react";
 
 const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular";
@@ -12,6 +14,7 @@ const API_KEYS = "api_key=430bfb8ead0cc8146e757cfa6600f723";
 const URL_SEARCH = "https://api.themoviedb.org/3/search/movie";
 const LANGUAJE = "language=es-ES";
 
+// Funcionalidad para representar listado de películas populares
 function App() {
   // Estado para almacenar las películas populares
   const [movies, setMovies] = useState([]);
@@ -20,23 +23,22 @@ function App() {
   // Estado para almacenar los resultados de la búsqueda
   const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
+ 
     const fetchMovies = async () => {
       try {
         const res = await fetch(`${URL_POPULAR}?${LANGUAJE}&${API_KEYS}`);
         const data = await res.json();
 
         setMovies(data.results);
+        console.log(data.results);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
     };
 
-    fetchMovies();
-  }, []);
-
+  
   // Efecto para realizar la búsqueda cuando cambia el término de búsqueda
-  useEffect(() => {
+  
     const searchMovies = async () => {
       try {
         if (searchTerm.trim().length > 2) {
@@ -55,8 +57,15 @@ function App() {
       }
     };
 
-    searchMovies();
-  }, [searchTerm]);
+    useEffect(() => {
+      if (searchTerm.trim() === "") {
+        fetchMovies();
+      }
+      else{
+        searchMovies();
+      }
+    }, [searchTerm]);
+ 
 
   // Función para manejar cambios en el campo de búsqueda
   const handleSearch = (event) => {
@@ -68,18 +77,17 @@ function App() {
 
   return (
     <>
-      {/* Seccion de busquedad con el input */}
-      {/* <div className="container-input">
-        <input
-          className="input"
-          type="text"
-          placeholder="Buscar"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </div> */}
-      <HeaderNav  searchTerm={searchTerm} handleSearch={handleSearch}/>
-      <MovieList movies={moviesToDisplay} />
+    <Router>
+        <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<MovieList moviesToDisplay={moviesToDisplay} />}
+          />
+          <Route path="/movie/:id" element={<MovieDetails />} />
+        </Routes>
+    </Router>
     </>
   );
 }
