@@ -36,7 +36,7 @@ function App() {
       const data = await res.json();
 
       setMovies(data.results);
-      console.log(data.results);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
