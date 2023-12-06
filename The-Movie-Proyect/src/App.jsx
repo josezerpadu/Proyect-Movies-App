@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import './App.css'
-import './style/MovieDetails.css'
+import "./style/MovieDetails.css";
 import "./style/MovieList.css";
 import "./style/Header.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HeaderNav from "./component/HeaderNav";
 import MovieList from "./component/MovieList";
 import MovieDetails from "./component/MovieDetails";
 import { useEffect, useState } from "react";
-import Spinner from './component/Spinner/Spinner';
+import Spinner from "./component/Spinner/Spinner";
 
 const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular";
 const API_KEYS = "api_key=430bfb8ead0cc8146e757cfa6600f723";
@@ -26,54 +26,49 @@ function App() {
 
   const [spinner, setSpinner] = useState(false);
 
- 
-    const fetchMovies = async () => {
-      try {
+  const fetchMovies = async () => {
+    try {
+      setSpinner(true);
+      const res = await fetch(`${URL_POPULAR}?${LANGUAJE}&${API_KEYS}`);
+      const data = await res.json();
+
+      setMovies(data.results);
+      console.log(data.results);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
+    setSpinner(false);
+  };
+
+  // Efecto para realizar la búsqueda cuando cambia el término de búsqueda
+
+  const searchMovies = async () => {
+    try {
+      if (searchTerm.trim().length > 2) {
         setSpinner(true);
-        const res = await fetch(`${URL_POPULAR}?${LANGUAJE}&${API_KEYS}`);
+        const res = await fetch(
+          `${URL_SEARCH}?${LANGUAJE}&${API_KEYS}&query=${searchTerm}`
+        );
         const data = await res.json();
 
-        setMovies(data.results);
+        setSearchResults(data.results);
         console.log(data.results);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
+      } else {
+        setSearchResults([]);
       }
-      setSpinner(false);
-    };
+    } catch (error) {
+      console.error("Error searching movies:", error);
+    }
+    setSpinner(false);
+  };
 
-  
-  // Efecto para realizar la búsqueda cuando cambia el término de búsqueda
-  
-    const searchMovies = async () => {
-      try {
-        
-        if (searchTerm.trim().length > 2) {
-          setSpinner(true);
-          const res = await fetch(
-            `${URL_SEARCH}?${LANGUAJE}&${API_KEYS}&query=${searchTerm}`
-          );
-          const data = await res.json();
-
-          setSearchResults(data.results);
-          console.log(data.results);
-        } else {
-          setSearchResults([]);
-        }
-      } catch (error) {
-        console.error("Error searching movies:", error);
-      }
-      setSpinner(false);
-    };
-
-    useEffect(() => {
-      if (searchTerm.trim() === "") {
-        fetchMovies();
-      }
-      else{
-        searchMovies();
-      }
-    }, [searchTerm]);
- 
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      fetchMovies();
+    } else {
+      searchMovies();
+    }
+  }, [searchTerm]);
 
   // Función para manejar cambios en el campo de búsqueda
   const handleSearch = (event) => {
@@ -85,18 +80,18 @@ function App() {
 
   return (
     <>
-    <Router>
+      <Router>
         <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
         <Spinner spinner={spinner} />
         <Routes>
           <Route
             exact
             path="/"
-            element={ <MovieList moviesToDisplay={moviesToDisplay} />}
+            element={<MovieList moviesToDisplay={moviesToDisplay} />}
           />
           <Route path="/movie/:id" element={<MovieDetails />} />
         </Routes>
-    </Router>
+      </Router>
     </>
   );
 }
