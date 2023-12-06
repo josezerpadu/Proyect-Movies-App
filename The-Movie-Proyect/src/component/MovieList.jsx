@@ -22,7 +22,9 @@ const MovieList = ({ moviesToDisplay }) => {
               <h2 className="movie-title">{movie.title}</h2>
               </Link>
               <div>
+                <Link to={`/favorite`} className="movie-link">
                 <span>{<MdOutlineFavorite className="react-icon" />}</span>
+                </Link>
               </div>
             </li>
           ))}

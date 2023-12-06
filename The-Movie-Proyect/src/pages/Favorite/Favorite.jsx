@@ -1,16 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import './App.css'
-import './style/MovieDetails.css'
-import "./style/MovieList.css";
-import "./style/Header.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HeaderNav from "./component/HeaderNav";
-import MovieList from "./component/MovieList";
-import MovieDetails from "./component/MovieDetails";
-import Favorite from "./pages/Favorite/Favorite";
+import "../../style/MovieList.css"
+import MovieList from "../../component/MovieList";
 import { useEffect, useState } from "react";
-import Spinner from './component/Spinner/Spinner';
-import { MdFavorite } from 'react-icons/md';
+import Spinner from '../../component/Spinner/Spinner';
 
 const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular";
 const API_KEYS = "api_key=430bfb8ead0cc8146e757cfa6600f723";
@@ -18,7 +11,7 @@ const URL_SEARCH = "https://api.themoviedb.org/3/search/movie";
 const LANGUAJE = "language=es-ES";
 
 // Funcionalidad para representar listado de películas populares
-function App() {
+function Favorite() {
   // Estado para almacenar las películas populares
   const [movies, setMovies] = useState([]);
   // Estado para el término de búsqueda ingresado por el usuario
@@ -87,21 +80,9 @@ function App() {
 
   return (
     <>
-    <Router>
-        <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
-        <Spinner spinner={spinner} />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={ <MovieList moviesToDisplay={moviesToDisplay} />}
-          />
-          <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/favorite" element={<Favorite />} />
-        </Routes>
-    </Router>
+        <MovieList moviesToDisplay={moviesToDisplay} />
     </>
   );
 }
 
-export default App;
+export default Favorite
