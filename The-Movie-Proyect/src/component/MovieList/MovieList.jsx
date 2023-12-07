@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import "./MovieList.css";
 import { Link } from 'react-router-dom';
 import { MdOutlineFavorite } from "react-icons/md";
 
@@ -8,7 +9,6 @@ const MovieList = ({ moviesToDisplay }) => {
     <>
       <div className="container">
         <ul className="movie-list">
-          {/* Recorremos cada posicion en el arreglo y extraemos sus datos en una lista y mostramo en pantalla */}
           {moviesToDisplay.map((movie) => (
             <li key={movie.id} className="movie-item"> 
               <Link to={`/movie/${movie.id}`} className="movie-link">

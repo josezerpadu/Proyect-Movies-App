@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
+import "./HeaderNav.css";
 import { AiOutlineWeibo } from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const HeaderNav = ({searchTerm, handleSearch}) => {
+
   return (
     <div className='header-container'>
       <h1 className='brand'>  

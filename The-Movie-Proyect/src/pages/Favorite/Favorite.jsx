@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "../../style/MovieList.css"
-import MovieList from "../../component/MovieList";
+import MovieList from "../../component/MovieList/MovieList";
+import HeaderNav from "../../component/HeaderVav/HeaderNav";
+import Spinner from "../../component/Spinner/Spinner";
 import { useEffect, useState } from "react";
 import favorite from '../../bd.json'
 
 function Favorite() {
-
     const movie = favorite.results;
 
     useEffect(() => {

@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
+import "./MovieDetails.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BiLike } from "react-icons/bi";
 
 const MovieDetails = () => {
+
   const { id } = useParams(); // Obtener el ID de la película desde la URL
 
   // Estado para almacenar los detalles de la película
