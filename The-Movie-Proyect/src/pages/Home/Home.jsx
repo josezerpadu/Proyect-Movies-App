@@ -56,6 +56,7 @@ function Home() {
     else{
       searchMovies();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   const handleSearch = (event) => {
