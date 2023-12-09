@@ -3,21 +3,20 @@ import { Link } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { useEffect, useState } from "react";
 
-const MovieList = ({ moviesToDisplay }) => {
-  // Funcion que añade a favoritos al darle click en el corazon de la pelicula
-  const agregarFavorito = async (movie) => {
+const MovieListFav = ({ moviesToDisplay }) => {
+  const [favoriteMovies, setFavoriteMovies] = useState(false);
+  // Funcion que elimina a favoritos al darle click en el corazon de la pelicula
+  const deleteFavorite = async (movie) => {
     try {
       const res = await fetch(
-        "https://api-movies-tdt.vercel.app/api/auth/like-movie/6571ed3f7c91f4d6840f2a47",
+        "https://api-movies-tdt.vercel.app/api/auth/deslike-movie/6571ed3f7c91f4d6840f2a47",
         {
-          method: "POST",
+          method: "delete",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id: movie.id,
-            titulo: movie.original_title,
-            imagen: movie.poster_path,
+            movieId: movie.id,
           }),
         }
       );
@@ -30,9 +29,16 @@ const MovieList = ({ moviesToDisplay }) => {
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
+    setFavoriteMovies(true);
   };
 
-  // Aca retornarmos en pantalla nuestro listado de peliculas
+  // funcion que muestra los favoritos
+  useEffect(() => {
+    if (favoriteMovies) {
+      window.location.reload();
+    }
+  }, [deleteFavorite]);
+
   return (
     <>
       <div className="container">
@@ -40,17 +46,17 @@ const MovieList = ({ moviesToDisplay }) => {
           {moviesToDisplay.map((movie) => (
             <li key={movie.id} className="movie-item">
               <Link to={`/movie/${movie.id}`} className="movie-link">
-                {movie.poster_path ? (
+                {movie.imagen ? (
                   <img
                     className="movie-image"
-                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    alt={movie.title}
+                    src={`https://image.tmdb.org/t/p/w500/${movie.imagen}`}
+                    alt={movie.titulo}
                   />
                 ) : null}
                 <h2 className="movie-title">{movie.title}</h2>
               </Link>
               <div>
-                <span onClick={() => agregarFavorito(movie)}>
+                <span onClick={() => deleteFavorite(movie)}>
                   {<MdOutlineFavorite className="react-icon" />}
                 </span>
               </div>
@@ -62,4 +68,4 @@ const MovieList = ({ moviesToDisplay }) => {
   );
 };
 
-export default MovieList;
+export default MovieListFav;

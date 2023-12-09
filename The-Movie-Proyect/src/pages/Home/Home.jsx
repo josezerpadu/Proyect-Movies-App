@@ -1,4 +1,3 @@
-
 import MovieList from "../../component/MovieList/MovieList";
 import HeaderNav from "../../component/HeaderVav/HeaderNav";
 import Spinner from "../../component/Spinner/Spinner";
@@ -28,7 +27,7 @@ function Home() {
     }
     setSpinner(false);
   };
- 
+
   const searchMovies = async () => {
     try {
       if (searchTerm.trim().length > 2) {
@@ -37,7 +36,7 @@ function Home() {
           `${URL_SEARCH}?${LANGUAJE}&${API_KEYS}&query=${searchTerm}`
         );
         const data = await res.json();
-        
+
         setSearchResults(data.results);
         console.log(data.results);
       } else {
@@ -52,24 +51,23 @@ function Home() {
   useEffect(() => {
     if (searchTerm.trim() === "") {
       fetchMovies();
-    }
-    else{
+    } else {
       searchMovies();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-  
+
   // Determinar qué películas mostrar basadas en la búsqueda o las populares
   const moviesToDisplay = searchTerm.trim() === "" ? movies : searchResults;
 
   return (
     <>
       <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
-      <Spinner spinner={spinner}/>
+      <Spinner spinner={spinner} />
       <MovieList moviesToDisplay={moviesToDisplay} />
     </>
   );

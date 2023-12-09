@@ -1,18 +1,18 @@
-/* eslint-disable react/prop-types */
 import "./HeaderNav.css";
 import { AiOutlineWeibo } from "react-icons/ai";
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const HeaderNav = ({searchTerm, handleSearch}) => {
-
+const HeaderNav = ({ searchTerm, handleSearch }) => {
   return (
-    <div className='header-container'>
-      <h1 className='brand'>  
-        Pana
-        <Link to={`/`} className="movie-link">
-          <span className='logo-tv'>Tv {<AiOutlineWeibo />}</span>
-        </Link>
-      </h1>
+    <div className="header-container">
+      <div className="">
+        <h1 className="brand">
+          Pana
+          <Link to={`/`} className="movie-link">
+            <span className="logo-tv">Tv {<AiOutlineWeibo />}</span>
+          </Link>
+        </h1>
+      </div>
       <div className="container-input">
         <input
           className="input"
@@ -21,6 +21,11 @@ const HeaderNav = ({searchTerm, handleSearch}) => {
           value={searchTerm}
           onChange={handleSearch}
         />
+      </div>
+      <div className="header-container">
+        <Link to={`/favorite`} className="movie-link">
+          <button className="btn-fav">Favoritos</button>
+        </Link>
       </div>
     </div>
   );
