@@ -48,6 +48,33 @@ function Home() {
     setSpinner(false);
   };
 
+  const agregarFavorito = async (movie) => {
+    try {
+      const res = await fetch(
+        "https://api-movies-tdt.vercel.app/api/auth/like-movie/6571ed3f7c91f4d6840f2a47",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: movie.id,
+            titulo: movie.original_title,
+            imagen: movie.poster_path,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          "Unauthorized: No se ha podido autenticar :" + res.status
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
+  };
+
   useEffect(() => {
     if (searchTerm.trim() === "") {
       fetchMovies();
@@ -68,7 +95,7 @@ function Home() {
     <>
       <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
       <Spinner spinner={spinner} />
-      <MovieList moviesToDisplay={moviesToDisplay} />
+      <MovieList moviesToDisplay={moviesToDisplay} agregarFavorito={agregarFavorito} />
     </>
   );
 }

@@ -3,35 +3,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
 import { useEffect, useState } from "react";
 
-const MovieList = ({ moviesToDisplay }) => {
-  // Funcion que añade a favoritos al darle click en el corazon de la pelicula
-  const agregarFavorito = async (movie) => {
-    try {
-      const res = await fetch(
-        "https://api-movies-tdt.vercel.app/api/auth/like-movie/6571ed3f7c91f4d6840f2a47",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: movie.id,
-            titulo: movie.original_title,
-            imagen: movie.poster_path,
-          }),
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error(
-          "Unauthorized: No se ha podido autenticar :" + res.status
-        );
-      }
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    }
-  };
-
+const MovieList = ({ moviesToDisplay, agregarFavorito }) => {
   // Aca retornarmos en pantalla nuestro listado de peliculas
   return (
     <>

@@ -1,43 +1,8 @@
 import "./MovieList.css";
 import { Link } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
-import { useEffect, useState } from "react";
 
-const MovieListFav = ({ moviesToDisplay }) => {
-  const [favoriteMovies, setFavoriteMovies] = useState(false);
-  // Funcion que elimina a favoritos al darle click en el corazon de la pelicula
-  const deleteFavorite = async (movie) => {
-    try {
-      const res = await fetch(
-        "https://api-movies-tdt.vercel.app/api/auth/deslike-movie/6571ed3f7c91f4d6840f2a47",
-        {
-          method: "delete",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            movieId: movie.id,
-          }),
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error(
-          "Unauthorized: No se ha podido autenticar :" + res.status
-        );
-      }
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    }
-    setFavoriteMovies(true);
-  };
-
-  // funcion que muestra los favoritos
-  useEffect(() => {
-    if (favoriteMovies) {
-      window.location.reload();
-    }
-  }, [deleteFavorite]);
+const MovieListFav = ({ moviesToDisplay, deleteFavorite }) => {
 
   return (
     <>
