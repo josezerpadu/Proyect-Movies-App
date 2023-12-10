@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BiLike } from "react-icons/bi";
 
+import { MdOutlineFavorite } from "react-icons/md";
+
 const MovieDetails = () => {
   const { id } = useParams(); // Obtener el ID de la película desde la URL
 
@@ -25,6 +27,33 @@ const MovieDetails = () => {
       setMovieDetails(data); // Actualizar el estado con los detalles de la película
     } catch (error) {
       console.error("Error fetching movie details:", error);
+    }
+  };
+
+  const agregarFavorito = async (movie) => {
+    try {
+      const res = await fetch(
+        "https://api-movies-tdt.vercel.app/api/auth/like-movie/6571ed3f7c91f4d6840f2a47",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: movie.id,
+            titulo: movie.original_title,
+            imagen: movie.poster_path,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          "Unauthorized: No se ha podido autenticar :" + res.status
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching movies:", error);
     }
   };
 
@@ -80,6 +109,11 @@ const MovieDetails = () => {
               </span>
             </p>
             <p className="styles-genres">English</p>
+          </div>
+          <div>
+            <span onClick={() => agregarFavorito(movieDetails)}>
+              {<MdOutlineFavorite className="react-icon" />}
+            </span>
           </div>
         </div>
       ) : (
