@@ -18,7 +18,7 @@ const MovieListFav = ({ moviesToDisplay, deleteFavorite }) => {
                     alt={movie.titulo}
                   />
                 ) : null}
-                <h2 className="movie-title">{movie.title}</h2>
+                <h2 className="movie-title">{movie.titulo}</h2>
               </Link>
               <div>
                 <span onClick={() => deleteFavorite(movie)}>
