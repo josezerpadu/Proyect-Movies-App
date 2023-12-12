@@ -20,7 +20,6 @@ const MovieDetails = () => {
   // Estado para almacenar los detalles de la película
   const [movieDetails, setMovieDetails] = useState(null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  console.log(id);
 
   const cargarFavoritos = async () => {
     try {
@@ -30,7 +29,6 @@ const MovieDetails = () => {
       );
       const data = await respuesta.json();
       setFavoriteMovies(data.profile.movies_likes);
-      console.log(data.profile.movies_likes);
     } catch (error) {
       console.log("ERROR");
     }
@@ -46,8 +44,6 @@ const MovieDetails = () => {
         `https://api.themoviedb.org/3/movie/${id}?language=es-ES&api_key=430bfb8ead0cc8146e757cfa6600f723`
       );
       const data = await res.json();
-
-      console.log(data);
       setMovieDetails(data); // Actualizar el estado con los detalles de la película
     } catch (error) {
       console.error("Error fetching movie details:", error);
