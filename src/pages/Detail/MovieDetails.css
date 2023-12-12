@@ -1,3 +1,14 @@
+.back {
+    position: absolute;
+    top: 90px;
+    left: 45px;
+}
+
+.back-icon {
+    font-size: 30px;
+    color: rgba(255, 217, 0, 0.555);
+}
+
 .container-moviesdetails {
     position: absolute; 
     top: 90px;
@@ -59,5 +70,17 @@ span {
 
 .icon-likes {
     text-align: center;
+}
+
+.icon-details {
+    position: absolute;
+    top: 40px;
+    right: 880px;
+}
+
+.movie-link {
+    cursor: pointer;
+    z-index: 99999;
+   
 }
 

@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import "./MovieList.css";
 import { Link } from "react-router-dom";
-import { MdOutlineFavorite } from "react-icons/md";
+import { TiDelete } from "react-icons/ti";
 
 const MovieListFav = ({ moviesToDisplay, deleteFavorite }) => {
 
@@ -22,7 +23,7 @@ const MovieListFav = ({ moviesToDisplay, deleteFavorite }) => {
               </Link>
               <div>
                 <span onClick={() => deleteFavorite(movie)}>
-                  {<MdOutlineFavorite className="react-icon" />}
+                  {<TiDelete  className="react-icon" />}
                 </span>
               </div>
             </li>

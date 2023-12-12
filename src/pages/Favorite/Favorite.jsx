@@ -1,8 +1,13 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-no-undef */
 import Spinner from "../../component/Spinner/Spinner";
 import MovieListFav from "../../component/MovieList/MovieListFav";
 import { useEffect, useState } from "react";
+import HeaderNav from "../../component/HeaderVav/HeaderNav";
+
 
 function Favorite() {
+
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const[delFavorite, setDelFavorite] = useState(false);
@@ -15,13 +20,19 @@ function Favorite() {
       );
       const data = await respuesta.json();
       setFavoriteMovies(data.profile.movies_likes);
-
       console.log(data.profile.movies_likes);
+     
     } catch (error) {
       console.log("ERROR");
     }
     setSpinner(false);
   };
+
+  useEffect(() => {
+  console.log('Valor actual de number:', favoriteMovies.length);
+}, [favoriteMovies]);
+
+
 
   const deleteFavorite = async (movie) => {
     try {
@@ -56,8 +67,10 @@ function Favorite() {
 
   return (
     <>
+
+      <HeaderNav numberFavoritos={favoriteMovies} />
       <Spinner spinner={spinner} />
-      <MovieListFav moviesToDisplay={favoriteMovies} deleteFavorite={deleteFavorite}/>
+      <MovieListFav moviesToDisplay={favoriteMovies} deleteFavorite={deleteFavorite} />
     </>
   );
 }

@@ -22,16 +22,16 @@
 
   .container-input {
     position: absolute;
-    top: 20px;
-    right: 200px;
+    top: 21px;
+    right: 480px;
     z-index: 9999;
   }
   
   .input {
-    max-width: 280px;
+    width: 350px;
     background-color: rgba(0, 0, 0, 0.507);
     border: 1px solid red;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 4px;
     color: rgb(212, 58, 58);
     font-size: 17px;
@@ -42,13 +42,26 @@
   }
   
   .btn-fav {
-    background-color: rgba(0, 0, 0, 0.507);
-    border: 1px solid red;
-    border-radius: 20px;
+    display: inline;
+    width: 120px;
+    position: absolute;
+    right: 50px;
+    top: 21px;
     padding: 4px;
-    color: rgb(212, 58, 58);
+    background-color: yellow;
+    border-radius: 10px;
+    padding: 4px;
+    color:red;
     font-size: 17px;
     text-align: center;
+    border: none;
+    font-weight: 200;
+    cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .btn-fav:hover {
+    box-shadow: 0 2px 25px rgba(182, 7, 7, 0.596);
   }
   
   

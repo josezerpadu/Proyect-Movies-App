@@ -1,8 +1,11 @@
+/* eslint-disable no-undef */
 import MovieList from "../../component/MovieList/MovieList";
 import HeaderNav from "../../component/HeaderVav/HeaderNav";
 import Spinner from "../../component/Spinner/Spinner";
 
+
 import { useEffect, useState } from "react";
+
 
 const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular";
 const API_KEYS = "api_key=430bfb8ead0cc8146e757cfa6600f723";
@@ -14,6 +17,26 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [spinner, setSpinner] = useState(false);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  
+  const [test, setTest] = useState(true);
+
+
+  const cargarFavoritos = async () => {
+    try {
+      setSpinner(true);
+      const respuesta = await fetch(
+        "https://api-movies-tdt.vercel.app/api/auth/profile/6571ed3f7c91f4d6840f2a47"
+      );
+      const data = await respuesta.json();
+      setFavoriteMovies(data.profile.movies_likes);
+      console.log(data.profile.movies_likes);
+     
+    } catch (error) {
+      console.log("ERROR");
+    }
+    setSpinner(false);
+  };
 
   const fetchMovies = async () => {
     try {
@@ -26,8 +49,9 @@ function Home() {
       console.error("Error fetching movies:", error);
     }
     setSpinner(false);
+    
   };
-
+  
   const searchMovies = async () => {
     try {
       if (searchTerm.trim().length > 2) {
@@ -50,6 +74,8 @@ function Home() {
 
   const agregarFavorito = async (movie) => {
     try {
+      if(!favoriteMovies.some(elemet => elemet.id === movie.id)) {
+
       const res = await fetch(
         "https://api-movies-tdt.vercel.app/api/auth/like-movie/6571ed3f7c91f4d6840f2a47",
         {
@@ -70,6 +96,11 @@ function Home() {
           "Unauthorized: No se ha podido autenticar :" + res.status
         );
       }
+      cargarFavoritos();
+      setTest(false);
+    }else {
+      alert('La pelicula ya esta en favoritos')
+    }
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
@@ -81,6 +112,7 @@ function Home() {
     } else {
       searchMovies();
     }
+    cargarFavoritos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
@@ -93,9 +125,9 @@ function Home() {
 
   return (
     <>
-      <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch} />
+      <HeaderNav searchTerm={searchTerm} handleSearch={handleSearch}  numberFavoritos={favoriteMovies}/>
       <Spinner spinner={spinner} />
-      <MovieList moviesToDisplay={moviesToDisplay} agregarFavorito={agregarFavorito} />
+      <MovieList moviesToDisplay={moviesToDisplay} agregarFavorito={agregarFavorito} test={test} favoriteMovies={favoriteMovies}/>
     </>
   );
 }

@@ -63,6 +63,9 @@
   padding: 2px;
   transition: transform 0.3s ease;
 }
+.react-icontwo{
+  background-color: brown;
+}
 
 .react-icon:hover {
   font-size: 35px;

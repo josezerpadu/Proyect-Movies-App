@@ -1,10 +1,12 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import "./MovieList.css";
 import { Link } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
-import { useEffect, useState } from "react";
 
-const MovieList = ({ moviesToDisplay, agregarFavorito }) => {
+const MovieList = ({ moviesToDisplay, agregarFavorito, favoriteMovies }) => {
   // Aca retornarmos en pantalla nuestro listado de peliculas
+  console.log('listafavorito',favoriteMovies)
   return (
     <>
       <div className="container">
@@ -21,11 +23,13 @@ const MovieList = ({ moviesToDisplay, agregarFavorito }) => {
                 ) : null}
                 <h2 className="movie-title">{movie.title}</h2>
               </Link>
-              <div>
+
+              { (!favoriteMovies.some(elemtId => elemtId.id === movie.id)) ? 
+              <div> 
                 <span onClick={() => agregarFavorito(movie)}>
-                  {<MdOutlineFavorite className="react-icon" />}
+                    <MdOutlineFavorite className='react-icon' />
                 </span>
-              </div>
+              </div> : ''}
             </li>
           ))}
         </ul>
