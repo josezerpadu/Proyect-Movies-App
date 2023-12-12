@@ -17,8 +17,6 @@ function Home() {
   const [spinner, setSpinner] = useState(false);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
-  const [test, setTest] = useState(true);
-
   const cargarFavoritos = async () => {
     try {
       setSpinner(true);
@@ -67,7 +65,6 @@ function Home() {
 
   const agregarFavorito = async (movie) => {
     try {
-      if (!favoriteMovies.some((elemet) => elemet.id === movie.id)) {
         const res = await fetch(
           "https://api-movies-tdt.vercel.app/api/auth/like-movie/6571ed3f7c91f4d6840f2a47",
           {
@@ -89,10 +86,7 @@ function Home() {
           );
         }
         cargarFavoritos();
-        setTest(false);
-      } else {
-        alert("La pelicula ya esta en favoritos");
-      }
+
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
@@ -126,7 +120,6 @@ function Home() {
       <MovieList
         moviesToDisplay={moviesToDisplay}
         agregarFavorito={agregarFavorito}
-        test={test}
         favoriteMovies={favoriteMovies}
       />
     </>
