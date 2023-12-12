@@ -86,7 +86,6 @@ function Home() {
           );
         }
         cargarFavoritos();
-
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
